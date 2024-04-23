@@ -5,8 +5,7 @@
   <head>
     <meta charset="UTF-8">
     <title>{{ .config.Metadata.Title }} API</title>
-    <link rel="stylesheet" type="text/css" href="https://unpkg.com/swagger-ui-dist@3.22.2/swagger-ui.css" >
-    <link rel="icon" type="image/png" href="https://www.crunchydata.com/favicon.png">
+    <link rel="stylesheet" type="text/css" href="{{ .config.Server.BasePath }}/assets/libs/swagger-ui.css" >
     <style>
       html
       {
@@ -30,8 +29,8 @@
 
   <body>
     <div id="swagger-ui"></div>
-    <script src="https://unpkg.com/swagger-ui-dist@3.22.2/swagger-ui-bundle.js"> </script>
-    <script src="https://unpkg.com/swagger-ui-dist@3.22.2/swagger-ui-standalone-preset.js"> </script>
+    <script src="{{ .config.Server.BasePath }}/assets/libs/swagger-ui-bundle.js"> </script>
+    <script src="{{ .config.Server.BasePath }}/assets/libs/swagger-ui-standalone-preset.js"> </script>
     <script>
     window.onload = function() {
       // Begin Swagger UI call region

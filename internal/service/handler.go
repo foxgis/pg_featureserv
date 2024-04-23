@@ -70,6 +70,10 @@ func initRouter(basePath string) *mux.Router {
 	addRoute(router, "/functions/{id}/items", handleFunctionItems)
 	addRoute(router, "/functions/{id}/items.{fmt}", handleFunctionItems)
 
+	fs := http.FileServer(http.Dir(conf.Configuration.Server.AssetsPath))
+	prefix := "/" + strings.TrimRight(strings.TrimLeft(basePath, "/"), "/") + "/assets"
+	router.PathPrefix("/assets").Handler(http.StripPrefix(prefix, fs))
+
 	return router
 }
 
