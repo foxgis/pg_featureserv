@@ -1,0 +1,28 @@
+ARG GOLANG_VERSION
+ARG VERSION
+ARG BASE_REGISTRY
+ARG BASE_IMAGE
+
+FROM docker.io/library/golang:${GOLANG_VERSION}-alpine AS builder
+LABEL stage=featureservbuilder
+
+ARG VERSION
+
+WORKDIR /app
+COPY . ./
+
+RUN CGO_ENABLED=0 GOOS=linux go build -v -ldflags "-s -w -X main.programVersion=${VERSION}"
+
+FROM --platform=${TARGETARCH} ${BASE_REGISTRY}/${BASE_IMAGE} AS multi-stage
+
+COPY --from=builder /app/pg_featureserv .
+COPY --from=builder /app/assets ./assets
+
+VOLUME ["/config"]
+VOLUME ["/assets"]
+
+USER 1001
+EXPOSE 9000
+
+ENTRYPOINT ["./pg_featureserv"]
+CMD []
