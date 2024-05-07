@@ -93,7 +93,7 @@ multi-stage-docker: Dockerfile set-multi-stage build-common ## Generate a BASE_I
 
 release: clean docs docker  ##            Generate the docs, a local build, and then uses the local build to generate BASE_IMAGE container
 
-release-buildx: Dockerfile.buildx set-multi-stage
+release-buildx: Dockerfile.buildx set-multi-stage	##     Build a multi-platform image and push to the registry
 	docker buildx build . -f Dockerfile.buildx \
 		--target $(BUILDTYPE) \
 		--platform linux/amd64,linux/arm64 \
